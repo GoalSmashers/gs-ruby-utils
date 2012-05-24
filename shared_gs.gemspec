@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Jakub Pawlowicz"]
   s.email       = ["jakub@goalsmashers.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Shared GS artifacts}
-  s.description = %q{TODO: Shared GS artifacts}
+  s.summary     = %q{Shared GS artifacts}
+  s.description = %q{Shared GS artifacts}
 
   # s.rubyforge_project = "shared_gs"
 
