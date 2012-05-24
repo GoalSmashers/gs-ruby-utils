@@ -1,5 +1,5 @@
-module GS
-  module Helpers::ApplicationHelper
+module GS::Helpers
+  module ApplicationHelper
     # Browser version testers
     def ie7?
       request.user_agent =~ /MSIE 7/

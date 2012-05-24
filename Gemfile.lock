@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    shared_gs (0.0.1)
+    shared_gs (0.0.3)
 
 GEM
   remote: http://rubygems.org/
