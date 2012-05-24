@@ -1,0 +1,1 @@
+require_relative 'shared_gs/helpers/application_helper'
