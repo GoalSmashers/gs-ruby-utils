@@ -1,8 +1,14 @@
+require 'rake'
 require 'rake/tasklib'
 require 'yaml'
 
 module GS::Rake
-  class SequelTask < TaskLib
+  class SequelTask < Rake::TaskLib
+    def initialize
+      yield self if block_given?
+      define
+    end
+
     def define
       namespace :db do
         desc 'Run database migrations'
