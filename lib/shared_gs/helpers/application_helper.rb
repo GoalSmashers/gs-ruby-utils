@@ -12,5 +12,14 @@ module GS::Helpers
     def chrome_frame?
       request.user_agent =~ /chromeframe/
     end
+
+    # CSRF helpers
+    def csrf_tag
+      Rack::Csrf.tag(env) unless Application.env?(:test)
+    end
+
+    def csrf_token
+      Rack::Csrf.token(env) unless Application.env?(:test)
+    end
   end
 end
