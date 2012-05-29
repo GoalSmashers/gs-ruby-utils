@@ -1,4 +1,5 @@
 class Sequel::Model
+  plugin :association_dependencies
   plugin :timestamps, update_on_create: true
   plugin :touch
   plugin :json_serializer
