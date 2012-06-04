@@ -1,14 +1,73 @@
+GIT
+  remote: https://github.com/bigfix/machinist.git
+  revision: be28caa89f36251c66619ca721440459a3b7e219
+  specs:
+    machinist (1.0.6)
+
+GIT
+  remote: https://github.com/rtomayko/tilt.git
+  revision: 9a474c5dd9c3d37ff441cfcfe65932fd795acb7a
+  branch: encodings
+  specs:
+    tilt (1.3.3)
+
 PATH
   remote: .
   specs:
-    shared_gs (0.0.9)
+    shared_gs (0.0.12)
 
 GEM
   remote: http://rubygems.org/
   specs:
+    activesupport (3.2.5)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    airbrake (3.1.0)
+      activesupport
+      builder
+    builder (3.0.0)
+    faker (1.0.1)
+      i18n (~> 0.4)
+    flexmock (0.9.0)
+    i18n (0.6.0)
+    mail (2.4.1)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.18)
+    minitest (3.0.1)
+    multi_json (1.3.6)
+    polyglot (0.3.3)
+    postmark (0.9.10)
+    rack (1.4.1)
+    rack-protection (1.2.0)
+      rack
+    rack_csrf (2.4.0)
+      rack (>= 0.9)
+    sequel (3.36.1)
+    sinatra (1.3.2)
+      rack (~> 1.3, >= 1.3.6)
+      rack-protection (~> 1.2)
+      tilt (~> 1.3, >= 1.3.3)
+    timecop (0.3.5)
+    treetop (1.4.10)
+      polyglot
+      polyglot (>= 0.3.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
+  faker
+  flexmock
+  machinist!
+  mail
+  minitest
+  postmark
+  rack_csrf
+  sequel
   shared_gs!
+  sinatra (~> 1.3.0)
+  tilt!
+  timecop
