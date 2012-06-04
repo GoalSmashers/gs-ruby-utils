@@ -1,4 +1,5 @@
 require 'shared_gs/version'
+require 'shared_gs/core/time'
 require 'shared_gs/utils/class_utils'
 require 'shared_gs/utils/sequel'
 require 'shared_gs/utils/notifications'
