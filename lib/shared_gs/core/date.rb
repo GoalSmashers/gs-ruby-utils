@@ -1,5 +1,5 @@
 class Date
   def to_json(*args)
-    self.to_datetime.to_s
+    self.iso8601.to_json
   end
 end
