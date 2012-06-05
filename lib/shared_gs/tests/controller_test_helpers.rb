@@ -1,3 +1,6 @@
+require_relative 'rack_test_helpers'
+require_relative 'generic_test_helpers'
+
 module GS::Tests
   module ControllerTestHelpers
     include GenericTestHelpers
@@ -13,7 +16,9 @@ module GS::Tests
     end
 
     def app_for(context)
-      # TBI
+      Rack::Builder.app do
+        run Rack::Cascade.new [context].compact
+      end
     end
 
     def session(user, &block)

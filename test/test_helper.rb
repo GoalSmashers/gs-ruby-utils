@@ -1,14 +1,16 @@
 require 'rubygems'
 require 'bundler/setup'
 Bundler.setup
-Bundler.require
+Bundler.require(:default, :test)
 
 gem 'minitest'
 require 'minitest/autorun'
 require 'flexmock'
 require 'sham'
 require 'faker'
-require_relative '../lib/shared_gs'
+require 'rack/test'
+
+require 'shared_gs/tests/controller_test_helpers'
 
 # Test helpers
 Sham.email { Faker::Internet.email }
@@ -18,3 +20,4 @@ module Mail
     # Swallow
   end
 end
+

@@ -5,6 +5,14 @@ class MailProxy
     MailProxy.new.deliver_email(template, mail_fields, ctx, is_bulk)
   end
 
+  def self.mail_view_prefix(template)
+    File.join(Application.root, 'app', 'views', template)
+  end
+
+  def self.template_path
+    File.join(Application.root, 'app', 'views', 'layouts', 'email.erb')
+  end
+
   def deliver_email(template, mail_fields = {}, ctx = {}, is_bulk = false)
     if is_bulk
       messages = ctx[:to].collect do |address|
@@ -29,15 +37,15 @@ class MailProxy
   end
 
   # Having instance method so binding can see named routes
-  def build_email(template, mail_fields = {}, ctx = {})
-    template_path_and_prefix = File.join(Application.root, 'app', 'views', template)
+  def build_email(mail_view, mail_fields = {}, ctx = {})
+    mail_path_and_prefix = mail_view_prefix(mail_view)
     bound_to = self
     message = Mail.new
     attachments = mail_fields.delete(:attachments) || []
     mail_fields.each { |key, value| message[key] = value }
 
     # Add plain text parts
-    text_view_path = "#{template_path_and_prefix}.text.plain.erb"
+    text_view_path = "#{mail_path_and_prefix}.text.plain.erb"
     if File.exists?(text_view_path)
       message.text_part = Mail::Part.new do
         body Tilt.new(text_view_path).render(bound_to, ctx: ctx)
@@ -45,8 +53,7 @@ class MailProxy
     end
 
     # Add HTML part
-    template_path = File.join(Application.root, 'app', 'views', 'layouts', 'email.erb')
-    html_view_path = "#{template_path_and_prefix}.text.html.erb"
+    html_view_path = "#{mail_path_and_prefix}.text.html.erb"
     if File.exists?(html_view_path)
       html_body = Tilt.new(template_path).render(bound_to, ctx: ctx) do
         Tilt.new(html_view_path).render(bound_to, ctx: ctx)
