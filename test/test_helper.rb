@@ -1,3 +1,4 @@
+ENV['RACK_ENV'] = 'test'
 require 'rubygems'
 require 'bundler/setup'
 Bundler.setup
@@ -11,6 +12,10 @@ require 'faker'
 require 'rack/test'
 
 require 'shared_gs/tests/controller_test_helpers'
+require 'shared_gs/tests/mail_test_helpers'
+
+# Fake host
+HOST = 'fake.host'
 
 # Dummy application
 class Application < Sinatra::Base
@@ -22,10 +27,3 @@ end
 
 # Test helpers
 Sham.email { Faker::Internet.email }
-
-module Mail
-  def self.bulk_deliver(messages)
-    # Swallow
-  end
-end
-
