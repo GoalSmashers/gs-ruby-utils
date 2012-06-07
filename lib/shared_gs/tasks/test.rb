@@ -36,6 +36,12 @@ module GS::Rake
           end.compact
           abort "Errors running #{errors.join(', ')}!" if errors.any?
         end
+
+        Rake::TestTask.new('flat') do |t|
+          t.libs << 'test'
+          t.pattern = 'test/**/*_test.rb'
+          t.verbose = true
+        end
       end
     end
   end
