@@ -26,4 +26,23 @@ describe Fixnum do
       25.days.must_equal 25 * 24 * 3600
     end
   end
+
+  describe 'time diffs' do
+    it 'should calculate ago' do
+      Timecop.freeze(Time.now) do
+        1.minute.ago.must_equal (Time.now - 1.minute)
+        2.hours.ago.must_equal (Time.now - 2.hours)
+        5.days.ago.must_equal (Time.now - 5.days)
+      end
+    end
+
+    it 'should calculate since' do
+      Timecop.freeze(Time.now) do
+        1.day.since.must_equal (Time.now + 1.day)
+        2.hours.since.must_equal (Time.now + 2.hours)
+        5.minutes.since.must_equal (Time.now + 5.minutes)
+        10.seconds.since.must_equal (Time.now + 10.seconds)
+      end
+    end
+  end
 end

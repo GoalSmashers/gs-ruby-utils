@@ -30,4 +30,12 @@ class Fixnum
   def days
     day
   end
+
+  def ago
+    Time.now - self
+  end
+
+  def since
+    Time.now + self
+  end
 end
