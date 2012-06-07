@@ -12,6 +12,14 @@ require 'rack/test'
 
 require 'shared_gs/tests/controller_test_helpers'
 
+# Dummy application
+class Application < Sinatra::Base
+  include GS::Controllers::Application
+  class << self
+    include GS::Controllers::ApplicationClass
+  end
+end
+
 # Test helpers
 Sham.email { Faker::Internet.email }
 

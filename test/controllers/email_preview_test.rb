@@ -45,7 +45,8 @@ describe EmailPreview do
             html_part: flexmock({
               charset: 'UTF-8',
               body: '!!HTML!!'
-            })
+            }),
+           text_part: nil
           })
         )
 
@@ -66,6 +67,7 @@ describe EmailPreview do
             from: Sham.email,
             'multipart?' => false,
             subject: 'subject',
+            html_part: nil,
             text_part: flexmock({
               charset: 'UTF-8',
               body: '!!TEXT!!'
