@@ -38,7 +38,7 @@ class MailProxy
 
   # Having instance method so binding can see named routes
   def build_email(mail_view, mail_fields = {}, ctx = {})
-    mail_path_and_prefix = mail_view_prefix(mail_view)
+    mail_path_and_prefix = self.mail_view_prefix(mail_view)
     bound_to = self
     message = Mail.new
     attachments = mail_fields.delete(:attachments) || []
