@@ -48,6 +48,8 @@ class EmailPreview < Sinatra::Base
     end
 
     mail = preview_mailer.build_email("#{preview_mailer.class.to_s.underscore}/#{resource}", email_info, context)
+    halt 404, "Empty text and body part" unless mail.html_part && mail.text_part
+
     template = Tilt::ERBTemplate.new { |t| layout }
     template.render(Object.new, {
       url: request.url,
