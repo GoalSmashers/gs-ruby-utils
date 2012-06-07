@@ -11,6 +11,10 @@ module GS::Tests
       assert_equal(false, email.text_part.body.include?(text), text)
       assert_equal(false, email.html_part.body.include?(text), text)
     end
+
+    def deliveries
+      Mail::TestMailer.deliveries
+    end
   end
 end
 
