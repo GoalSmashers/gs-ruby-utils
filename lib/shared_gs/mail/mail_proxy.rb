@@ -1,16 +1,20 @@
 require 'tilt'
 
 class MailProxy
+  def root
+    Application.root
+  end
+
+  def mail_view_prefix(template)
+    File.join(root, 'app', 'views', template)
+  end
+
+  def template_path
+    File.join(root, 'app', 'views', 'layouts', "#{self.class.to_s.underscore}.erb")
+  end
+
   def self.deliver(template, mail_fields = {}, ctx = {}, is_bulk = false)
     MailProxy.new.deliver_email(template, mail_fields, ctx, is_bulk)
-  end
-
-  def self.mail_view_prefix(template)
-    File.join(Application.root, 'app', 'views', template)
-  end
-
-  def self.template_path
-    File.join(Application.root, 'app', 'views', 'layouts', 'email.erb')
   end
 
   def deliver_email(template, mail_fields = {}, ctx = {}, is_bulk = false)
@@ -38,7 +42,7 @@ class MailProxy
 
   # Having instance method so binding can see named routes
   def build_email(mail_view, mail_fields = {}, ctx = {})
-    mail_path_and_prefix = self.mail_view_prefix(mail_view)
+    mail_path_and_prefix = mail_view_prefix(mail_view)
     bound_to = self
     message = Mail.new
     attachments = mail_fields.delete(:attachments) || []

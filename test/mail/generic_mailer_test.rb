@@ -27,7 +27,7 @@ describe GenericMailer do
       flexmock(GenericMailer)
         .new_instances
         .should_receive(:deliver_email)
-        .with('some_path/demo', on { |args| verify_mail_fields.call(args) }, on { |args| verify_ctx.call(args) }, false)
+        .with('generic_mailer/demo', on { |args| verify_mail_fields.call(args) }, on { |args| verify_ctx.call(args) }, false)
         .once
         .and_return(true)
 
@@ -40,7 +40,7 @@ describe GenericMailer do
       flexmock(GenericMailer)
         .new_instances
         .should_receive(:deliver_email)
-        .with('some_path/demo', on { |args| args[:to] == to }, any, false)
+        .with('generic_mailer/demo', on { |args| args[:to] == to }, any, false)
         .once
         .and_return(true)
 
@@ -57,7 +57,7 @@ describe GenericMailer do
       flexmock(GenericMailer)
         .new_instances
         .should_receive(:deliver_email)
-        .with('some_path/demo', on { |args| args[:to] == ctx[:to] }, on { |args| args[:x1] == 1 && args[:x2] == 5 }, false)
+        .with('generic_mailer/demo', on { |args| args[:to] == ctx[:to] }, on { |args| args[:x1] == 1 && args[:x2] == 5 }, false)
         .once
         .and_return(true)
 
@@ -70,7 +70,7 @@ describe GenericMailer do
       flexmock(GenericMailer)
         .new_instances
         .should_receive(:deliver_email)
-        .with('some_path/demo', any, any, true)
+        .with('generic_mailer/demo', any, any, true)
         .once
         .and_return(true)
 

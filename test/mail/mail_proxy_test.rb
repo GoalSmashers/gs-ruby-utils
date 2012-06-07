@@ -1,7 +1,21 @@
 require 'test_helper'
 
+class MailProxy
+  def root
+    Dir.pwd
+  end
+end
+
 describe MailProxy do
   include FlexMock::TestCase
+
+  it 'should get mail view prefix' do
+    MailProxy.new.mail_view_prefix('mail_proxy/demo').must_equal "#{Dir.pwd}/app/views/mail_proxy/demo"
+  end
+
+  it 'should get template path' do
+    MailProxy.new.template_path.must_equal "#{Dir.pwd}/app/views/layouts/mail_proxy.erb"
+  end
 
   describe 'static deliver' do
     it 'should forward to instance' do

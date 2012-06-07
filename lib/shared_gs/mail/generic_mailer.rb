@@ -8,7 +8,7 @@ class GenericMailer < MailProxy
   end
 
   def self.path
-    'some_path'
+    self.to_s.underscore
   end
 
   def self.deliver(template, ctx = {})
