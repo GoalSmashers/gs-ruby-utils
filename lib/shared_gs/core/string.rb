@@ -7,4 +7,10 @@ class String
       .tr("-", "_")
       .downcase
   end
+
+  def camelize
+    self
+      .sub(/^[a-z\d]*/) { $&.capitalize }
+      .gsub(/(?:_|(\/))([a-z\d]*)/i) { "#{$1}#{$2.capitalize}" }
+  end
 end
