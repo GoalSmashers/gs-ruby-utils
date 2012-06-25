@@ -28,12 +28,16 @@ class MailProxy
 
       begin
         Mail.bulk_deliver(messages)
+      rescue Timeout::Error => e
+        Airbrake.notify(e)
       rescue Postmark::InvalidMessageError => e
         Airbrake.notify(e)
       end
     else
       begin
         build_email(template, mail_fields, ctx).deliver
+      rescue Timeout::Error => e
+        Airbrake.notify(e)
       rescue Postmark::InvalidMessageError => e
         Airbrake.notify(e)
       end
