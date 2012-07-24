@@ -9,7 +9,7 @@ module GS::Models
 
     # ATTRIBUTES
     def email=(new_email)
-      self[:email] = new_email.downcase
+      self[:email] = new_email.downcase if new_email
     end
 
     def password=(new_password)

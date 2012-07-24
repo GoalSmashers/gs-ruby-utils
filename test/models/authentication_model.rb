@@ -36,6 +36,12 @@ describe FakeUser do
     FakeUser.secure_digest([]).wont_equal nil
   end
 
+  it 'should accept nil email' do
+    u = FakeUser.new
+    u.email = nil
+    u.email.must_equal nil
+  end
+
   it 'should turn email downcase' do
     u = FakeUser.new
     u.email = "John.Doe@dummy.com"
