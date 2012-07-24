@@ -3,8 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 group :test do
-  gem 'ruby-debug-base19', '0.11.26'
-  gem 'ruby-debug19'
+  gem 'debugger'
 
   gem 'tilt', git: 'https://github.com/rtomayko/tilt.git', branch: 'encodings'
   gem 'sinatra', '~> 1.3.0'
