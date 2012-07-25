@@ -12,7 +12,7 @@ group :test do
   gem 'sequel'
   gem 'mail'
   gem 'postmark'
-  gem 'airbrake'
+  gem 'json'
 
   gem 'minitest'
   gem 'flexmock'

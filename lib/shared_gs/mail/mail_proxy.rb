@@ -1,5 +1,10 @@
 require 'tilt'
 
+class Airbrake
+  def self.notify(e)
+  end
+end
+
 class MailProxy
   def root
     Application.root

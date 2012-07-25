@@ -25,6 +25,16 @@ describe Fixnum do
       7.days.must_equal 7 * 24 * 3600
       25.days.must_equal 25 * 24 * 3600
     end
+
+    it 'should handle months' do
+      1.month.must_equal 30 * 24 * 3600
+      5.months.must_equal 5 * 30 * 24 * 3600
+    end
+
+    it 'should handle years' do
+      1.year.must_equal 365.25 * 24 * 3600
+      3.years.must_equal 3 * 365.25 * 24 * 3600
+    end
   end
 
   describe 'time diffs' do
@@ -38,10 +48,12 @@ describe Fixnum do
 
     it 'should calculate since' do
       Timecop.freeze(Time.now) do
-        1.day.since.must_equal (Time.now + 1.day)
-        2.hours.since.must_equal (Time.now + 2.hours)
-        5.minutes.since.must_equal (Time.now + 5.minutes)
         10.seconds.since.must_equal (Time.now + 10.seconds)
+        5.minutes.since.must_equal (Time.now + 5.minutes)
+        2.hours.since.must_equal (Time.now + 2.hours)
+        1.day.since.must_equal (Time.now + 1.day)
+        2.months.since.must_equal (Time.now + 2.months)
+        4.years.since.must_equal (Time.now + 4.years)
       end
     end
   end
