@@ -6,6 +6,11 @@ class MailProxy
   end
 end
 
+class Airbrake
+  def self.notify(e)
+  end
+end
+
 describe MailProxy do
   include FlexMock::TestCase
 
