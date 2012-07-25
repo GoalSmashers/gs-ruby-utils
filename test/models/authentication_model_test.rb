@@ -3,7 +3,7 @@ require 'test_helper'
 class FakeUser
   attr_accessor :_store
   attr_accessor :salt, :crypted_password
-  attr_accessor :remember_token, :remember_token_expires_at
+  attr_accessor :memorize_token, :memorize_token_expires_at
   attr_accessor :reset_password_token, :reset_password_token_expires_at
   attr_accessor :activation_token
 
@@ -59,8 +59,8 @@ describe FakeUser do
   it 'should set memorize token' do
     u = FakeUser.new
     u.set_memorize_token!
-    u.remember_token.wont_equal nil
-    u.remember_token_expires_at.to_i.must_equal 1.year.since.to_i
+    u.memorize_token.wont_equal nil
+    u.memorize_token_expires_at.to_i.must_equal 1.year.since.to_i
   end
 
   it 'should set reset password token' do

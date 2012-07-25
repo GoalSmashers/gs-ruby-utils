@@ -24,8 +24,8 @@ module GS::Models
       token = self.class::secure_digest([Time.now.to_f, 'memorize', 'token']) unless token
 
       update(
-        remember_token: token,
-        remember_token_expires_at: expires_at
+        memorize_token: token,
+        memorize_token_expires_at: expires_at
       )
     end
 
@@ -74,7 +74,7 @@ module GS::Models
     end
 
     def authenticate_by_token(token)
-      self.filter(remember_token: token).and { remember_token_expires_at > Time.now }.first
+      self.filter(memorize_token: token).and { memorize_token_expires_at > Time.now }.first
     end
 
     def secure_digest(*args)
