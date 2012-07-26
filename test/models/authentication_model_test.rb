@@ -76,4 +76,15 @@ describe FakeUser do
     u.set_activation_token
     u.activation_token.wont_equal nil
   end
+
+  it 'should reset password' do
+    u = FakeUser.new
+    u.set_reset_token
+    u.reset_password('12345', '12345')
+
+    u.password.must_equal '12345'
+    u.password_confirmation.must_equal '12345'
+    u.reset_password_token.must_equal nil
+    u.reset_password_token_expires_at.must_equal nil
+  end
 end

@@ -43,9 +43,9 @@ module GS::Models
       reset_password_token && reset_password_token_expires_at > Time.now
     end
 
-    def reset_password(new_password)
-      self.password = new_password
-      self.password_confirmation = new_password
+    def reset_password(password, password_confirmation)
+      self.password = password
+      self.password_confirmation = password_confirmation
       self.reset_password_token = nil
       self.reset_password_token_expires_at = nil
       self.save
