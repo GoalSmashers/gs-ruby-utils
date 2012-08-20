@@ -13,4 +13,19 @@ describe Time do
     json = JSON[[now]]
     JSON.parse(json)[0].must_equal now.iso8601.to_s
   end
+
+  it 'should give noon' do
+    now = Time.now
+    now.noon.must_equal Time.local(now.year, now.month, now.day)
+  end
+
+  it 'should give beginning of a month' do
+    now = Time.now
+    now.beginning_of_month.must_equal Time.local(now.year, now.month)
+  end
+
+  it 'should give end of a month' do
+    now = Time.now
+    now.end_of_month.must_equal Time.local(now.year, now.month) - 1.second
+  end
 end
