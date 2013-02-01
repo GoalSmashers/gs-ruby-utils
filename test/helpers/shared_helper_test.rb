@@ -3,8 +3,8 @@ require 'shared_gs/helpers/shared_helpers'
 
 include GS::Helpers
 
-describe SharedHelpers do
-  include SharedHelpers
+describe SharedHelper do
+  include SharedHelper
 
   describe '#url' do
     it 'should create URL' do
