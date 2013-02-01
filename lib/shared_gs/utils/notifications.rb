@@ -11,7 +11,8 @@ module GS::Utils
         data: options.delete(:data),
         source: options[:source],
         sticky: options[:sticky] || false,
-        timestamp: Time.now.to_f
+        dataLastUpdated: user.data_changed_at.to_i,
+        timestamp: Time.zone.now.to_f
       }
     end
 
@@ -46,24 +47,30 @@ module GS::Utils
     end
 
     def self.broadcast(eventId, data = {})
-      publish('all', [{ eventId: eventId, data: data }])
+      publish('all', [
+        {
+          eventId: eventId,
+          data: data,
+          timestamp: Time.zone.now.to_f
+        }
+      ])
     end
 
     private
 
     def self.process(user)
+      return unless @@messages[user.id]
+
       merge_notifications(user, 'opportunity:created', 'opportunities:created')
+      messages = @@messages.delete(user.id)
+      ACTIVITY_LOGGER.info("#{Time.zone.now} - activity updates for user '#{user.email}', type '#{messages.collect { |m| m[:eventId] } }'")
 
-      return if !@@messages[user.id] || Application.env?(:test)
-
-      user_messages = @@messages.delete(user.id)
-
-      publish(user.channel_id, user_messages)
+      publish(user.channel_id, messages)
     end
 
-    def self.publish(channelId, message)
+    def self.publish(channelId, messages)
       @@mutex.synchronize do
-        if !@@publisher
+        unless @@publisher
           # Create a fifo if it does not exist
           system("mkfifo #{@@pipe_file}") unless File.exists?(@@pipe_file)
 
@@ -71,13 +78,23 @@ module GS::Utils
           ACTIVITY_LOGGER.info("\n** Opened new pipe connection (##{@@publisher})")
         end
 
-        @@publisher.puts(JSON.generate(authSecret: ::PUBLISHER_SECRET_KEY, channelId: channelId, message: message))
+        data = {
+          authSecret: ::PUBLISHER_SECRET_KEY,
+          channelId: channelId,
+          message: messages
+        }
+
+        @@publisher.puts(JSON.generate(data))
         @@publisher.flush
       end
     end
 
     def self.merge_notifications(owner, oldEventId, newEventId)
-      old_events = (@@messages[owner.id] || []).collect { |m| m[:eventId] == oldEventId ? m : nil }.compact
+      old_events = (@@messages[owner.id] || [])
+        .collect do |m|
+          m[:eventId] == oldEventId ? m : nil
+        end
+        .compact
       return unless old_events.length > 0
 
       new_event = {
