@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'shared_gs/models/authentication_model'
 
 class FakeUser
   attr_accessor :_store

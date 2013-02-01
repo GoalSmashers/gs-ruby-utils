@@ -1,6 +1,6 @@
 # We use after filter as Rack Middleware so it does not get included multiple times via inheritance
 # and don't run before requests as Filters are included as first app in config.ru
-module GS::Controllers
+module GS::Middleware
   class NotificationFilter
     def initialize(app)
       @app = app

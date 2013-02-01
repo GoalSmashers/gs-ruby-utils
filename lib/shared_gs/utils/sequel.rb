@@ -10,3 +10,5 @@ class Sequel::Model
     db[table_name]
   end
 end
+
+Sequel.default_timezone = :utc

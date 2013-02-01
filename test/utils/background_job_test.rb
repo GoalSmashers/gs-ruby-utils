@@ -1,4 +1,6 @@
 require 'test_helper'
+require 'shared_gs/jobs/abstract_job'
+require 'shared_gs/utils/background_job'
 
 include GS::Utils
 include GS::Jobs

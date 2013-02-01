@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'shared_gs/mail/generic_mailer'
 
 class GenericMailer < GS::Mail::GenericMailer
   def demo(ctx = {})

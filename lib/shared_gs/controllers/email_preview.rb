@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/namespace'
+require 'shared_gs/mail/generic_mailer'
 
 module GS::Controllers
   class EmailPreview < Sinatra::Base

@@ -1,3 +1,5 @@
+require 'shared_gs/mail/mail_proxy'
+
 module GS::Mail
   class GenericMailer < MailProxy
     def self.from_name

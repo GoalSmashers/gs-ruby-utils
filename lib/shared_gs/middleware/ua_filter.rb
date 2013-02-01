@@ -1,4 +1,4 @@
-module GS::Controllers
+module GS::Middleware
   class UAFilter
     def initialize(app)
       @app = app

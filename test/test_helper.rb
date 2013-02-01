@@ -14,6 +14,8 @@ require 'rack/test'
 require 'shared_gs/tests/controller_test_helpers'
 require 'shared_gs/tests/mail_test_helpers'
 
+require 'shared_gs/controllers/application'
+
 # Fake host
 HOST = 'fake.host'
 
