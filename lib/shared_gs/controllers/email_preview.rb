@@ -1,66 +1,67 @@
 require 'sinatra'
 require 'sinatra/namespace'
 
-class EmailPreview < Sinatra::Base
-  register Sinatra::Namespace
+module GS::Controllers
+  class EmailPreview < Sinatra::Base
+    register Sinatra::Namespace
 
-  def self.from
-    'info@goalsmashers.com'
-  end
-
-  def self.mailer
-    GenericMailer
-  end
-
-  def self.path
-    "/#{mailer.to_s.underscore}"
-  end
-
-  namespace path do
-    # Example
-    # get '/account_limit_hit*' do
-    #   prepare_email do
-    #     {
-    #       name_or_email: Sham.first_name,
-    #       limit: 10
-    #     }
-    #   end
-    # end
-  end
-
-  private
-
-  def prepare_email(&block)
-    resource, type = request.path.split("#{self.class.path}/").last.split('.')
-    preview_mailer = self.class.mailer.new
-    email_info = {
-      from: self.class.from,
-      to: Sham.email
-    }
-    context = yield
-
-    begin
-      method = resource.split('/').first.to_sym
-      email_info.merge!(preview_mailer.method(method).call(context))
-      context[:subject] = email_info[:subject]
-    rescue Exception => e
-      # swallow
+    def self.from
+      'info@goalsmashers.com'
     end
 
-    mail = preview_mailer.build_email("#{preview_mailer.class.to_s.underscore}/#{resource}", email_info, context)
-    halt 404, "Empty text and body part" if !mail.html_part && !mail.text_part
+    def self.mailer
+      GS::Mail::GenericMailer
+    end
 
-    template = Tilt::ERBTemplate.new { |t| layout }
-    template.render(Object.new, {
-      url: request.url,
-      mail: mail,
-      type: type,
-      body_part: type == 'html' ? mail.html_part : mail.text_part
-    })
-  end
+    def self.path
+      "/#{mailer.to_s.underscore}"
+    end
 
-  def layout
-    <<-LAYOUT
+    namespace path do
+      # Example
+      # get '/account_limit_hit*' do
+      #   prepare_email do
+      #     {
+      #       name_or_email: Sham.first_name,
+      #       limit: 10
+      #     }
+      #   end
+      # end
+    end
+
+    private
+
+    def prepare_email(&block)
+      resource, type = request.path.split("#{self.class.path}/").last.split('.')
+      preview_mailer = self.class.mailer.new
+      email_info = {
+        from: self.class.from,
+        to: Sham.email
+      }
+      context = yield
+
+      begin
+        method = resource.split('/').first.to_sym
+        email_info.merge!(preview_mailer.method(method).call(context))
+        context[:subject] = email_info[:subject]
+      rescue Exception => e
+        # swallow
+      end
+
+      mail = preview_mailer.build_email("#{preview_mailer.class.to_s.underscore}/#{resource}", email_info, context)
+      halt 404, "Empty text and body part" if !mail.html_part && !mail.text_part
+
+      template = Tilt::ERBTemplate.new { |t| layout }
+      template.render(Object.new, {
+        url: request.url,
+        mail: mail,
+        type: type,
+        body_part: type == 'html' ? mail.html_part : mail.text_part
+      })
+    end
+
+    def layout
+      <<-LAYOUT
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=<%= body_part.charset %>" />
 </head>
@@ -154,6 +155,7 @@ class EmailPreview < Sinatra::Base
 <% else %>
   <pre id="message_body"><%= body_part.body %></pre>
 <% end %>
-    LAYOUT
+      LAYOUT
+    end
   end
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GenericMailer
+class GenericMailer < GS::Mail::GenericMailer
   def demo(ctx = {})
     { subject: "Generic Subject" }
   end

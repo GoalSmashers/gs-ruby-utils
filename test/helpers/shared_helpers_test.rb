@@ -1,7 +1,9 @@
 require 'test_helper'
 
-describe GS::Helpers::SharedHelpers do
-  include GS::Helpers::SharedHelpers
+include GS::Helpers
+
+describe SharedHelpers do
+  include SharedHelpers
 
   describe '#url' do
     it 'should create URL' do

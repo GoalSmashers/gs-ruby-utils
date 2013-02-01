@@ -1,7 +1,9 @@
 require 'test_helper'
 require 'shared_gs/controllers/email_preview'
 
-class MyMailer < GenericMailer
+include GS::Controllers
+
+class MyMailer < GS::Mail::GenericMailer
   def demo(ctx = {})
     {}
   end

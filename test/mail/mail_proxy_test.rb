@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MailProxy
+class TestMailProxy < GS::Mail::MailProxy
   def root
     Dir.pwd
   end
@@ -11,27 +11,27 @@ class Airbrake
   end
 end
 
-describe MailProxy do
+describe TestMailProxy do
   include FlexMock::TestCase
 
   it 'should get mail view prefix' do
-    MailProxy.new.mail_view_prefix('mail_proxy/demo').must_equal "#{Dir.pwd}/app/views/mail_proxy/demo"
+    TestMailProxy.new.mail_view_prefix('mail_proxy/demo').must_equal "#{Dir.pwd}/app/views/mail_proxy/demo"
   end
 
   it 'should get template path' do
-    MailProxy.new.template_path.must_equal "#{Dir.pwd}/app/views/layouts/mail_proxy.erb"
+    TestMailProxy.new.template_path.must_equal "#{Dir.pwd}/app/views/layouts/test_mail_proxy.erb"
   end
 
   describe 'static deliver' do
     it 'should forward to instance' do
-      flexmock(MailProxy)
+      flexmock(TestMailProxy)
         .new_instances
         .should_receive(:deliver_email)
         .once
         .with(:test, { a: 1 }, { b: 2 }, false)
         .and_return(true)
 
-      MailProxy.deliver(:test, { a: 1 }, { b: 2 })
+      TestMailProxy.deliver(:test, { a: 1 }, { b: 2 })
     end
   end
 
@@ -40,7 +40,7 @@ describe MailProxy do
       message = Mail.new
       address = Sham.email
 
-      flexmock(MailProxy)
+      flexmock(TestMailProxy)
         .new_instances
         .should_receive(:build_email)
         .once
@@ -50,14 +50,14 @@ describe MailProxy do
         .should_receive(:deliver)
         .once
 
-      MailProxy.deliver(:test, { to: address }, { subject: "Just testing" })
+      TestMailProxy.deliver(:test, { to: address }, { subject: "Just testing" })
     end
 
     it 'should call airbrake in case of an error' do
       error = Postmark::InvalidMessageError.new
       message = Mail.new
 
-      flexmock(MailProxy)
+      flexmock(TestMailProxy)
         .new_instances
         .should_receive(:build_email)
         .once
@@ -71,7 +71,7 @@ describe MailProxy do
         .once
         .with(error)
 
-      MailProxy.deliver(:test)
+      TestMailProxy.deliver(:test)
     end
 
     it 'should send bulk emails' do
@@ -79,7 +79,7 @@ describe MailProxy do
       subject = "Test email"
       message = Mail.new
 
-      flexmock(MailProxy)
+      flexmock(TestMailProxy)
         .new_instances
         .should_receive(:build_email)
         .twice
@@ -94,20 +94,20 @@ describe MailProxy do
           messages.length == 2
         end)
 
-      MailProxy.deliver(:test, {}, { to: to, subject: subject }, true)
+      TestMailProxy.deliver(:test, {}, { to: to, subject: subject }, true)
     end
 
     it 'should pass correct :to when doing bulk emails' do
       to = [Sham.email]
 
-      flexmock(MailProxy)
+      flexmock(TestMailProxy)
         .new_instances
         .should_receive(:build_email)
         .once
         .with(:test, hsh(to: to[0]), hsh(to: to[0]))
         .and_return(true)
 
-      MailProxy.deliver(:test, {}, { to: to }, true)
+      TestMailProxy.deliver(:test, {}, { to: to }, true)
     end
   end
 end

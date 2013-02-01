@@ -1,5 +1,8 @@
 require 'test_helper'
 
+include GS::Utils
+include GS::Jobs
+
 class TestJob < AbstractJob
 end
 

@@ -20,9 +20,6 @@ HOST = 'fake.host'
 # Dummy application
 class Application < Sinatra::Base
   include GS::Controllers::Application
-  class << self
-    include GS::Controllers::ApplicationClass
-  end
 end
 
 # Test helpers
