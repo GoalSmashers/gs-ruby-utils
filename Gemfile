@@ -13,6 +13,7 @@ group :test do
   gem 'mail'
   gem 'postmark'
   gem 'json'
+  gem 'tzinfo'
 
   gem 'minitest'
   gem 'flexmock'

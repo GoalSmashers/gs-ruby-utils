@@ -31,6 +31,14 @@ class Fixnum
     day
   end
 
+  def week
+    7 * 24 * 3600 * self
+  end
+
+  def weeks
+    week
+  end
+
   def month
     30 * 24 * 3600 * self
   end
@@ -48,11 +56,11 @@ class Fixnum
   end
 
   def ago
-    Time.now - self
+    Time.zone.now - self
   end
 
   def since
-    Time.now + self
+    Time.zone.now + self
   end
 
   def from_now

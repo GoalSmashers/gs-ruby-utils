@@ -26,6 +26,12 @@ describe Fixnum do
       25.days.must_equal 25 * 24 * 3600
     end
 
+    it 'should handle weeks' do
+      1.week.must_equal 7 * 24 * 3600
+      7.weeks.must_equal 7 * 7 * 24 * 3600
+      25.weeks.must_equal 25 * 7 * 24 * 3600
+    end
+
     it 'should handle months' do
       1.month.must_equal 30 * 24 * 3600
       5.months.must_equal 5 * 30 * 24 * 3600
