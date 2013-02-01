@@ -23,7 +23,7 @@ class MyEmailPreview < EmailPreview
   end
 end
 
-describe EmailPreview do
+describe MyEmailPreview do
   include GS::Tests::ControllerTestHelpers
   include FlexMock::TestCase
 
