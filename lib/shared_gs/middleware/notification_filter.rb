@@ -10,7 +10,7 @@ module GS::Middleware
       status, headers, body = @app.call(env)
 
       user = find_user(env)
-      if user && env['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && !headers['Content-Disposition'] && extra_checks
+      if user && env['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && !headers['Content-Disposition'] && extra_checks(env)
         # Attach events to current response
         if status >= 200 && status < 299
           old_body = body.join
@@ -37,7 +37,7 @@ module GS::Middleware
       [status, headers, body]
     end
 
-    def extra_checks
+    def extra_checks(env)
       true
     end
 
