@@ -83,6 +83,9 @@ module GS::Mail
         }
       end
 
+      # Set encoding explicetely
+      message.parts.each { |p| p.charset = 'UTF-8' }
+
       message
     end
   end
