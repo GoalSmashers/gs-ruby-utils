@@ -1,5 +1,5 @@
 module GS::Tests
-  module GenericTestHelpers
+  module GenericTestHelper
     def assert_email_sent(count = 1, &block)
       Mail::TestMailer.deliveries.clear
 

@@ -1,9 +1,13 @@
 module GS::Tests
-  module RackTestHelpers
+  module RackTestHelper
     include Rack::Test::Methods
 
     def redirected_to?(path)
-      last_response.headers['Location'].index(path) != nil
+      if path.kind_of?(Regexp)
+        last_response.headers['Location'].index(path) != nil
+      else
+        last_response.headers['Location'].include?(path)
+      end
     end
 
     %w(get post put delete options head).each do |m|

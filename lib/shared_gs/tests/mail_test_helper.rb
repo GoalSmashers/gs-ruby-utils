@@ -1,7 +1,7 @@
 require 'mail'
 
 module GS::Tests
-  module MailTestHelpers
+  module MailTestHelper
     def body_has?(email, text)
       assert_equal(true, email.text_part.body.include?(text), text)
       assert_equal(true, email.html_part.body.include?(text), text)

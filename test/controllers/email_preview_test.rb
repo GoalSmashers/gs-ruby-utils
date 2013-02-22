@@ -24,7 +24,7 @@ class MyEmailPreview < EmailPreview
 end
 
 describe MyEmailPreview do
-  include GS::Tests::ControllerTestHelpers
+  include GS::Tests::ControllerTestHelper
   include FlexMock::TestCase
 
   def app

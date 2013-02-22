@@ -1,17 +1,14 @@
-require_relative 'rack_test_helpers'
-require_relative 'generic_test_helpers'
+require_relative 'rack_test_helper'
+require_relative 'generic_test_helper'
 
 module GS::Tests
-  module ControllerTestHelpers
-    include GenericTestHelpers
-    include RackTestHelpers
-
-    def setup
-      super
-    end
+  module ControllerTestHelper
+    include GenericTestHelper
+    include RackTestHelper
 
     def teardown
       super
+
       header 'User-Agent', ''
     end
 
