@@ -7,13 +7,13 @@ module GS::Middleware
     end
 
     def call(env)
-      status, headers, body_proxy = @app.call(env)
+      status, headers, body = @app.call(env)
 
       user = find_user(env)
       if user && env['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && !headers['Content-Disposition'] && extra_checks(env)
         # Attach events to current response
         if status >= 200 && status < 299
-          old_body = body_proxy.body.join
+          old_body = body.join
           new_body = {
             original: {
               body: old_body,
@@ -22,8 +22,8 @@ module GS::Middleware
             events: Notifications.get(user)
           }
           new_body = JSON.generate(new_body)
-          body_proxy.body.clear
-          body_proxy.body << new_body
+          body.clear
+          body << new_body
 
           headers['Content-Type'] = "application/json;charset=utf-8"
           headers['X-With-Events'] = '1'
@@ -34,7 +34,7 @@ module GS::Middleware
       # Send events nonetheless
       Notifications.send(user) if user
 
-      [status, headers, body_proxy]
+      [status, headers, body]
     end
 
     def extra_checks(env)
