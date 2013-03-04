@@ -35,8 +35,9 @@ module GS::Rake
           errors = dirs.collect do |task_dir|
             next if File.file?(File.join(Dir.pwd, task_dir))
 
+            task = task_dir.split('/').last
             begin
-              Rake::Task["test:#{task_dir.split('/').last}"].invoke
+              Rake::Task["test:#{task}"].invoke
               nil
             rescue => e
               task
