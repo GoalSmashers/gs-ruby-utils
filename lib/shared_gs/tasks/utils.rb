@@ -10,18 +10,18 @@ module GS::Rake
 
     def define
       desc "Open psql session"
-      task :db do
+      task :db, :env do |t, args|
         require 'yaml'
 
-        env = ARGV[1] || 'development'
+        env = args[:env] || 'development'
         db_config = YAML.load_file(File.join('config', 'database.yml'))[env]
 
         system("psql -U #{db_config['user']} #{db_config['database']}")
       end
 
       desc "Open racksh session"
-      task :c do
-        ENV['RACK_ENV'] = ARGV[1] || 'development'
+      task :c, :env do |t, args|
+        ENV['RACK_ENV'] = args[:env] || 'development'
         system("bundle exec racksh")
       end
     end
