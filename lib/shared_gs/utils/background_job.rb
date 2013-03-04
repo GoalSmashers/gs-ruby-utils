@@ -6,6 +6,11 @@ module GS::Utils
       if Application.env?(:staging, :production)
         # We call run instead to catch errors
         Navvy::Job.enqueue(object, :run, *args)
+      elsif Application.env?(:development)
+        Thread.new do
+          sleep 3
+          object.perform(*args)
+        end
       else
         object.perform(*args)
       end
