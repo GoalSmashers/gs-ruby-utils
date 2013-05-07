@@ -40,9 +40,7 @@ class Fixnum
   end
 
   def month
-    new_value = 30 * 24 * 3600 * self
-    new_value.instance_variable_set('@_months_diff', self)
-    new_value
+    MonthsNo.new(self)
   end
 
   def months
@@ -57,31 +55,42 @@ class Fixnum
     year
   end
 
-  def ago(from = Time.zone.now)
-    _months_diff ?
-      months_difference(from, -1) :
-      from - self
+  def ago
+    Time.zone.now - (kind_of?(MonthsNo) ? self.value : self)
   end
 
-  def since(from = Time.zone.now)
-    _months_diff ?
-      months_difference(from, 1) :
-      from + self
+  def since
+    Time.zone.now + (kind_of?(MonthsNo) ? self.value : self)
   end
 
   def from_now
     since
   end
+end
+
+class MonthsNo
+  attr_reader :months_no, :value
+
+  def initialize(months_no)
+    @value = 30 * 24 * 3600 * months_no
+    @months_no = months_no
+  end
+
+  def ago(from = Time.zone.now)
+    months_difference(from, -1)
+  end
+
+  def since(from = Time.zone.now)
+    months_difference(from, 1)
+  end
 
   private
 
-  attr_reader :_months_diff
-
   def months_difference(from, direction)
-    to_year = from.year + ((from.month + direction * _months_diff - 1) / 12.0).floor
+    to_year = from.year + ((from.month + direction * months_no - 1) / 12.0).floor
     to_leap_year = to_year % 4 == 0 && to_year % 100 != 0
 
-    to_month = from.month + direction * (_months_diff % 12)
+    to_month = from.month + direction * (months_no % 12)
     to_month += 12 if to_month < 1
     to_month -= 12 if to_month > 12
 

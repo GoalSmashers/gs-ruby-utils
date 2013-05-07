@@ -4,31 +4,23 @@ GIT
   specs:
     machinist (1.0.6)
 
-GIT
-  remote: https://github.com/rtomayko/tilt.git
-  revision: 9a474c5dd9c3d37ff441cfcfe65932fd795acb7a
-  branch: encodings
-  specs:
-    tilt (1.3.3)
-
 PATH
   remote: .
   specs:
-    shared_gs (0.44)
+    shared_gs (0.46)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    backports (2.3.0)
+    backports (3.3.0)
     columnize (0.3.6)
-    debugger (1.2.0)
+    debugger (1.5.0)
       columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.1.3)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.3)
-    eventmachine (0.12.10)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
+    eventmachine (1.0.3)
     faker (1.0.1)
       i18n (~> 0.4)
     flexmock (0.9.0)
@@ -43,24 +35,25 @@ GEM
     polyglot (0.3.3)
     postmark (0.9.10)
     rack (1.5.2)
-    rack-protection (1.2.0)
+    rack-protection (1.5.0)
       rack
-    rack-test (0.6.1)
+    rack-test (0.6.2)
       rack (>= 1.0)
     rack_csrf (2.4.0)
       rack (>= 0.9)
     sequel (3.36.1)
-    sinatra (1.3.2)
-      rack (~> 1.3, >= 1.3.6)
-      rack-protection (~> 1.2)
-      tilt (~> 1.3, >= 1.3.3)
-    sinatra-contrib (1.3.1)
+    sinatra (1.4.2)
+      rack (~> 1.5, >= 1.5.2)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    sinatra-contrib (1.4.0)
       backports (>= 2.0)
       eventmachine
       rack-protection
       rack-test
-      sinatra (~> 1.3.0)
+      sinatra (~> 1.4.2)
       tilt (~> 1.3)
+    tilt (1.4.0)
     timecop (0.3.5)
     treetop (1.4.10)
       polyglot
@@ -71,7 +64,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  debugger
+  debugger (~> 1.5.0)
   faker
   flexmock
   json
@@ -83,8 +76,8 @@ DEPENDENCIES
   rack_csrf
   sequel
   shared_gs!
-  sinatra (~> 1.3.0)
-  sinatra-contrib (~> 1.3.0)
-  tilt!
+  sinatra (~> 1.4.0)
+  sinatra-contrib (~> 1.4.0)
+  tilt (~> 1.4.0)
   timecop
   tzinfo

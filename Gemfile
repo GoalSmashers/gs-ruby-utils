@@ -3,12 +3,12 @@ source "http://rubygems.org"
 gemspec
 
 group :test do
-  gem 'debugger'
+  gem 'debugger', '~> 1.5.0'
 
-  gem 'tilt', git: 'https://github.com/rtomayko/tilt.git', branch: 'encodings'
   gem 'rack', '~> 1.5.0'
-  gem 'sinatra', '~> 1.3.0'
-  gem 'sinatra-contrib', '~> 1.3.0'
+  gem 'tilt', '~> 1.4.0'
+  gem 'sinatra', '~> 1.4.0'
+  gem 'sinatra-contrib', '~> 1.4.0'
   gem 'rack_csrf'
   gem 'sequel'
   gem 'mail'

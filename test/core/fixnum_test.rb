@@ -33,8 +33,8 @@ describe Fixnum do
     end
 
     it 'should handle months' do
-      1.month.must_equal 30 * 24 * 3600
-      5.months.must_equal 5 * 30 * 24 * 3600
+      1.month.value.must_equal 30 * 24 * 3600
+      5.months.value.must_equal 5 * 30 * 24 * 3600
     end
 
     it 'should handle years' do
@@ -61,17 +61,29 @@ describe Fixnum do
         4.years.since.must_equal (Time.now + 4.years)
       end
     end
+
+    it 'should calculate ago for month' do
+      Timecop.freeze(2013, 7, 1) do
+        1.month.ago.must_equal (Time.zone.now - 1.month)
+      end
+    end
+
+    it 'should calculate since fro month' do
+      Timecop.freeze(2013, 7, 1) do
+        2.months.since.must_equal (Time.zone.now + 2.months)
+      end
+    end
   end
 
   describe 'ago from date' do
     it 'should calculate ago from date' do
-      1.month.ago(Time.zone.local(2014,1,1)).must_equal Time.zone.local(2013,12,1)
+      (Time.zone.local(2014,1,1) - 1.month).must_equal Time.zone.local(2013,12,1)
     end
   end
 
   describe 'since from date' do
     it 'should calculate since from date' do
-      12.month.since(Time.zone.local(2014,1,1)).must_equal Time.zone.local(2015,1,1)
+      (Time.zone.local(2014,1,1) + 12.month).must_equal Time.zone.local(2015,1,1)
     end
   end
 
