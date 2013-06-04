@@ -18,9 +18,9 @@ module GS::Rake
           cache_booster = ['staging', 'production'].include?(ENV['RACK_ENV']) ? '-b ' : ''
 
           if args[:only]
-            system("#{path}/assetspkg -l 80 -g #{cache_booster} -o #{args[:only]}")
+            system("#{path}/assetspkg -j #{args[:concurrent] || 2} -l 80 -g #{cache_booster} -o #{args[:only]}")
           else
-            system("#{path}/assetspkg -l 80 -g #{cache_booster}");
+            system("#{path}/assetspkg -j #{args[:concurrent] || 2} -l 80 -g #{cache_booster}");
           end
 
           pkg_callback.yield if pkg_callback
