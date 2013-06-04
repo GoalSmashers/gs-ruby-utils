@@ -118,6 +118,30 @@ describe Fixnum do
           1.month.ago.must_equal Time.zone.local(2012,1,1)
         end
       end
+
+      it 'should be ok when moving 7 months back' do
+        Timecop.freeze(Time.zone.local(2013,5,30)) do
+          1.month.ago.must_equal Time.zone.local(2013,4,30)
+          2.months.ago.must_equal Time.zone.local(2013,3,30)
+          3.months.ago.must_equal Time.zone.local(2013,2,28)
+          4.months.ago.must_equal Time.zone.local(2013,1,30)
+          5.months.ago.must_equal Time.zone.local(2012,12,30)
+          6.months.ago.must_equal Time.zone.local(2012,11,30)
+          7.months.ago.must_equal Time.zone.local(2012,10,30)
+        end
+      end
+
+      it 'should be ok when moving 7 months forward' do
+        Timecop.freeze(Time.zone.local(2013,5,31)) do
+          1.month.since.must_equal Time.zone.local(2013,6,30)
+          2.months.since.must_equal Time.zone.local(2013,7,31)
+          3.months.since.must_equal Time.zone.local(2013,8,31)
+          4.months.since.must_equal Time.zone.local(2013,9,30)
+          5.months.since.must_equal Time.zone.local(2013,10,31)
+          6.months.since.must_equal Time.zone.local(2013,11,30)
+          7.months.since.must_equal Time.zone.local(2013,12,31)
+        end
+      end
     end
 
     describe 'trimming' do
