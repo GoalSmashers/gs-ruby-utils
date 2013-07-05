@@ -6,7 +6,7 @@ class TZInfo::Timezone
   end
 
   def at(seconds)
-    utc_to_local(Time.at(seconds))
+    utc_to_local(Time.at(seconds).utc)
   end
 end
 

@@ -10,15 +10,21 @@ describe TZInfo::Timezone do
 
   describe 'at' do
     it 'should return proper time from integer stamp' do
-      TZInfo::Timezone.get('UTC').at(1316649600).must_equal Time.utc(2011,9,22,2)
+      zone('UTC').at(1316649600).hour.must_equal 0
     end
 
     it 'should return proper time from float stamp' do
-      TZInfo::Timezone.get('UTC').at(1316649600.0).must_equal Time.utc(2011,9,22,2)
+      zone('UTC').at(1316649600.0).hour.must_equal 0
     end
 
     it 'should return proper time from float stamp' do
-      TZInfo::Timezone.get('Europe/Moscow').at(1316649600.0).must_equal Time.utc(2011,9,22,6)
+      zone('Europe/Moscow').at(1316649600.0).hour.must_equal 4
     end
+  end
+
+  private
+
+  def zone(name)
+    TZInfo::Timezone.get(name)
   end
 end
