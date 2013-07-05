@@ -22,7 +22,7 @@ module GS
               },
               events: Notifications.get(user)
             }
-            new_body = JSON.generate(new_body)
+            new_body = ::JSON.generate(new_body)
             body.clear
             body << new_body
 

@@ -9,7 +9,7 @@ module GS
         content_type :json
         data.kind_of?(Symbol) ?
           erb(data) :
-          JSON.generate(data)
+          ::JSON.generate(data)
       end
     end
 

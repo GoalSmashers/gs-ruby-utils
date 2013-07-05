@@ -85,7 +85,7 @@ module GS
             message: messages
           }
 
-          @@publisher.puts(JSON.generate(data))
+          @@publisher.puts(::JSON.generate(data))
           @@publisher.flush
         end
       end

@@ -24,7 +24,7 @@ module GS
 
       def body
         if @json_body || (last_response.content_type =~ /application\/json/) != nil
-          @json_body = JSON.parse(last_response.body) unless @json_body
+          @json_body = ::JSON.parse(last_response.body) unless @json_body
           @json_body
         else
           last_response.body
