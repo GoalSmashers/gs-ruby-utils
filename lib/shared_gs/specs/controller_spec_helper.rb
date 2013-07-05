@@ -1,23 +1,25 @@
 require_relative 'rack_spec_helper'
 
-module GS::Specs
-  module ControllerSpecHelper
-    include RackSpecHelper
+module GS
+  module Specs
+    module ControllerSpecHelper
+      include RackSpecHelper
 
-    def teardown
-      super
+      def teardown
+        super
 
-      header 'User-Agent', ''
-    end
-
-    def app_for(context)
-      Rack::Builder.app do
-        run Rack::Cascade.new [context].compact
+        header 'User-Agent', ''
       end
-    end
 
-    def session(user, &block)
-      # TBI
+      def app_for(context)
+        Rack::Builder.app do
+          run Rack::Cascade.new [context].compact
+        end
+      end
+
+      def session(user, &block)
+        # TBI
+      end
     end
   end
 end
