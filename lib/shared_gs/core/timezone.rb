@@ -5,14 +5,8 @@ class TZInfo::Timezone
     utc_to_local(Time.utc(*args))
   end
 
-  def at(*args)
-    if args.length == 1 && args[0].is_a?(Time)
-      utc_to_local(args[0])
-    elsif args.length == 1 && args[0].is_a?(Numeric)
-      utc_to_local(Time.strptime(args[0].to_s, '%s'))
-    else
-      local(*args)
-    end
+  def at(seconds)
+    utc_to_local(Time.at(seconds))
   end
 end
 
