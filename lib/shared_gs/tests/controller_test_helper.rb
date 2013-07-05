@@ -1,9 +1,7 @@
 require_relative 'rack_test_helper'
-require_relative 'generic_test_helper'
 
 module GS::Tests
   module ControllerTestHelper
-    include GenericTestHelper
     include RackTestHelper
 
     def teardown

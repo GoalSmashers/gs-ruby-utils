@@ -1,7 +1,2 @@
-require_relative 'tests/generic_test_helper'
-require_relative 'tests/rack_test_helper'
-require_relative 'tests/controller_test_helper'
-require_relative 'tests/mail_test_helper'
-require_relative 'tests/job_test_helper'
 require_relative 'tests/proc_matcher'
 require_relative 'tests/sequel_test_helper'
