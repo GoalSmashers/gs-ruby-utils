@@ -1,8 +1,8 @@
-require_relative 'rack_test_helper'
+require_relative 'rack_spec_helper'
 
-module GS::Tests
-  module ControllerTestHelper
-    include RackTestHelper
+module GS::Specs
+  module ControllerSpecHelper
+    include RackSpecHelper
 
     def teardown
       super

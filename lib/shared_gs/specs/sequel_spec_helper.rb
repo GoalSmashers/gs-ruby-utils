@@ -1,4 +1,4 @@
-module GS::Tests
+module GS::Specs
   module Sequel
     class << self
       def truncate_all

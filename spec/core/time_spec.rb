@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 
 describe Time do
   it 'should process to_json' do

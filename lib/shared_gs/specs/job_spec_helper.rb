@@ -1,5 +1,5 @@
-module GS::Tests
-  module JobTestHelper
+module GS::Specs
+  module JobSpecHelper
     def job
       self.class.to_s.constantize
     end

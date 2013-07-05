@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 require 'shared_gs/mail/generic_mailer'
 
 class GenericMailer < GS::Mail::GenericMailer

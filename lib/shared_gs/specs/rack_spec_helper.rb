@@ -1,5 +1,5 @@
-module GS::Tests
-  module RackTestHelper
+module GS::Specs
+  module RackSpecHelper
     include Rack::Test::Methods
 
     def redirected_to?(path)

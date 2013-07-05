@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 require 'shared_gs/jobs/abstract_job'
 require 'shared_gs/utils/background_job'
 

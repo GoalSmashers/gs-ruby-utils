@@ -1,9 +1,9 @@
 require "bundler/gem_tasks"
 require 'rake/testtask'
 
-desc 'Run all tests'
-Rake::TestTask.new('test') do |t|
-  t.libs << "test"
-  t.pattern = "test/**/*_test.rb"
+desc 'Run all specs'
+Rake::TestTask.new('spec') do |t|
+  t.libs << "spec"
+  t.pattern = "spec/**/*_spec.rb"
   t.verbose = true
 end

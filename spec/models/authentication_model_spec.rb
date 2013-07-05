@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 require 'shared_gs/models/authentication_model'
 
 class FakeUser

@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 require 'shared_gs/helpers/shared_helper'
 
 include GS::Helpers

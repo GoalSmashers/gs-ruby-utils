@@ -11,8 +11,8 @@ require 'sham'
 require 'faker'
 require 'rack/test'
 
-require 'shared_gs/tests/controller_test_helper'
-require 'shared_gs/tests/mail_test_helper'
+require 'shared_gs/specs/controller_spec_helper'
+require 'shared_gs/specs/mail_spec_helper'
 
 require 'shared_gs/controllers/application'
 

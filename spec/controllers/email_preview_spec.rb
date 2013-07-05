@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 require 'shared_gs/controllers/email_preview'
 
 include GS::Controllers
@@ -24,7 +24,7 @@ class MyEmailPreview < EmailPreview
 end
 
 describe MyEmailPreview do
-  include GS::Tests::ControllerTestHelper
+  include GS::Specs::ControllerSpecHelper
   include FlexMock::TestCase
 
   def app
