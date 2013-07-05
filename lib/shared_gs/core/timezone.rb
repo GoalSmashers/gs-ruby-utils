@@ -4,6 +4,8 @@ class TZInfo::Timezone
   def local(*args)
     utc_to_local(Time.utc(*args))
   end
+
+  alias_method :at, :local
 end
 
 class Time
