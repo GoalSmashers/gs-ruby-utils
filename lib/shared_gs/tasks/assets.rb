@@ -37,7 +37,7 @@ module GS
 
           desc "Run JSHint tests"
           task :js_check do
-            puts "Valid!" if system("./node_modules/jshint/bin/hint .")
+            puts "Valid!" if system("./node_modules/.bin/jshint .")
           end
         end
       end
