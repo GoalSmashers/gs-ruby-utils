@@ -14,12 +14,8 @@ class MyEmailPreview < EmailPreview
     MyMailer
   end
 
-  namespace path do
-    get '/demo*' do
-      prepare_email do
-        {}
-      end
-    end
+  preview :demo do
+    {}
   end
 end
 

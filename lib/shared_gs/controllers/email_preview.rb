@@ -23,17 +23,21 @@ module GS
         path[1..-1]
       end
 
-      namespace path do
-        # Example
-        # get '/account_limit_hit*' do
-        #   prepare_email do
-        #     {
-        #       name_or_email: Sham.first_name,
-        #       limit: 10
-        #     }
-        #   end
-        # end
+      def self.preview(name, &block)
+        get("#{path}/#{name}*") do
+          prepare_email do
+            self.instance_eval(&block)
+          end
+        end
       end
+
+      # Example:
+      # preview 'account_limit_hit' do
+      #   {
+      #     name_or_email: Sham.first_name,
+      #     limit: 10
+      #   }
+      # end
 
       private
 
