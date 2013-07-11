@@ -27,6 +27,19 @@ describe MyEmailPreview do
     app_for(MyEmailPreview)
   end
 
+  describe '/my_mailer' do
+    it 'should get preview all' do
+      get '/my_mailer'
+      status.must_equal 200
+    end
+
+    it 'should get list of previews' do
+      get '/my_mailer/_list'
+      status.must_equal 200
+      body.must_include '/my_mailer/demo'
+    end
+  end
+
   describe '/my_mailer/demo' do
     it 'should get HTML version' do
       flexmock(MyMailer)
@@ -50,7 +63,7 @@ describe MyEmailPreview do
 
       get '/my_mailer/demo.html'
       status.must_equal 200
-      body.include?('!!HTML!!').must_equal true
+      body.must_include '!!HTML!!'
     end
 
     it 'should get text version' do
@@ -75,7 +88,7 @@ describe MyEmailPreview do
 
       get '/my_mailer/demo.txt'
       status.must_equal 200
-      body.include?('!!TEXT!!').must_equal true
+      body.must_include '!!TEXT!!'
     end
   end
 end

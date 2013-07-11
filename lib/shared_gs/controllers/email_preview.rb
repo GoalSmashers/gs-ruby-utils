@@ -24,6 +24,9 @@ module GS
       end
 
       def self.preview(name, &block)
+        add_view_all unless @all_previews
+        @@all_previews << name
+
         get("#{path}/#{name}*") do
           prepare_email do
             self.instance_eval(&block)
@@ -40,6 +43,45 @@ module GS
       # end
 
       private
+
+      @@all_previews = []
+
+      def self.add_view_all
+        get path do
+          Tilt::ERBTemplate.new { |t| frames_layout }.render(Object.new, { path: self.class.path })
+        end
+
+        get "#{path}/_list" do
+          Tilt::ERBTemplate.new { |t| list_all_layout }.render(Object.new,
+            name: self.class.to_s,
+            path: self.class.path,
+            previews: @@all_previews
+          )
+        end
+      end
+
+      def frames_layout
+        <<-LAYOUT
+<!DOCTYPE html>
+<html>
+<frameset cols="20%,*">
+  <frame name="navigation" src="<%= path %>/_list" />
+  <frame name="preview" />
+</frameset>
+</html>
+        LAYOUT
+      end
+
+      def list_all_layout
+        <<-LAYOUT
+<h3><%= name %></h3>
+<ol>
+  <% previews.each do |preview| %>
+    <li><a href="<%= path %>/<%= preview %>.html" target="preview"><%= preview %></a></li>
+  <% end %>
+</ol>
+        LAYOUT
+      end
 
       def prepare_email(&block)
         resource, type = request.path.split("#{self.class.path}/").last.split('.')
@@ -61,7 +103,7 @@ module GS
         mail = preview_mailer.build_email("#{self.class.views_path}/#{resource}", email_info, context)
         halt 404, "Empty text and body part" if !mail.html_part && !mail.text_part
 
-        template = Tilt::ERBTemplate.new { |t| layout }
+        template = Tilt::ERBTemplate.new { |t| email_layout }
         template.render(Object.new, {
           url: request.url,
           mail: mail,
@@ -70,7 +112,7 @@ module GS
         })
       end
 
-      def layout
+      def email_layout
         <<-LAYOUT
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=<%= body_part.charset %>" />
