@@ -6,45 +6,39 @@ require 'yaml'
 module GS
   module Rake
     class SpecTask < ::Rake::TaskLib
-      attr_accessor :ruby, :ruby_special, :js
-
       def initialize(options = {})
-        self.ruby = options[:ruby] || []
-        self.ruby_special = options[:ruby_special] || []
-        self.js = options[:js] || []
+        @extra = options.fetch(:extra, [])
+        @js = options.fetch(:js, [])
 
         yield self if block_given?
         define
       end
 
       def define
-        namespace :spec do
-          (self.ruby + self.ruby_special).each do |dir|
-            task_dir = "spec/#{dir}"
-            next if File.file?(File.join(Dir.pwd, task_dir))
-
-            ::Rake::TestTask.new(task_dir.split('/').last) do |t|
-              t.libs << "spec"
-              t.pattern = "#{task_dir}/**/*_spec.rb"
-              t.verbose = true
+        desc 'Run all specs'
+        task :spec do
+          errors = (js + ['rb']).collect do |task|
+            begin
+              ::Rake::Task["spec:#{task}"].invoke
+              nil
+            rescue => e
+              task
             end
+          end.compact
+          abort "Errors running #{errors.join(', ')}!" if errors.any?
+        end
+
+        namespace :spec do
+          ::Rake::TestTask.new('group') do |t|
+            t.libs << 'spec'
+            t.pattern = "#{ENV['IN']}/**/*_spec.rb"
+            t.verbose = true
           end
 
-          desc 'Run all specs'
-          task :all do
-            dirs = (self.js + self.ruby).collect { |dir| "spec/#{dir}" }
-            errors = dirs.collect do |task_dir|
-              next if File.file?(File.join(Dir.pwd, task_dir))
-
-              task = task_dir.split('/').last
-              begin
-                ::Rake::Task["spec:#{task}"].invoke
-                nil
-              rescue => e
-                task
-              end
-            end.compact
-            abort "Errors running #{errors.join(', ')}!" if errors.any?
+          ::Rake::TestTask.new('rb') do |t|
+            t.libs << 'spec'
+            t.test_files = Dir['spec/**/*_spec.rb'].delete_if { |p| p =~ extra_pattern }
+            t.verbose = false
           end
 
           desc 'Run specs for JavaScript'
@@ -52,12 +46,17 @@ module GS
             system('node spec/js/run.js --noColor')
             abort unless $?.success?
           end
+        end
+      end
 
-          ::Rake::TestTask.new('flat') do |t|
-            t.libs << 'spec'
-            t.pattern = 'spec/**/*_spec.rb'
-            t.verbose = true
-          end
+      private
+
+      attr_accessor :extra, :js
+
+      def extra_pattern
+        @_extra_pattern ||= begin
+          all_extras = @extra + ['setup']
+          %r(^spec/(#{all_extras.join('|')})/)
         end
       end
     end
