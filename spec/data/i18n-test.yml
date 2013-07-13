@@ -1,0 +1,13 @@
+en:
+  common:
+    accept(gs): Accept
+    activations(gs): activation activations
+    add_another: add another
+    all(gs): All
+    authenticate(gs,gw): Confirm identity
+    label(de): Desktop
+    label(mo): Mobile
+    options(xx):
+      - a
+      - b
+

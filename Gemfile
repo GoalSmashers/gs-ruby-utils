@@ -15,6 +15,7 @@ group :test do
   gem 'postmark'
   gem 'json'
   gem 'tzinfo', '~> 1.0.1'
+  gem 'i18n', '~> 0.6.4'
 
   gem 'minitest', '~> 4.7.3'
   gem 'timecop', '~> 0.6.1'
