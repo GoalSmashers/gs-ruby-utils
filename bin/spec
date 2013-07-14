@@ -3,9 +3,9 @@
 case ARGV.length
 when 0
   system('rake spec')
-when 1
+else
   if ARGV[0] =~ /_spec.rb$/
-    system("ruby -Ilib -Ispec #{ARGV[0]}")
+    system(*(['ruby', '-Ilib', '-Ispec'] + ARGV))
   else
     system("IN=#{ARGV[0]} rake spec:group")
   end
