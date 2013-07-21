@@ -85,8 +85,7 @@ module GS
             message: messages
           }
 
-          @@publisher.puts(::JSON.generate(data))
-          @@publisher.flush
+          @@publisher.write_nonblock(::JSON.generate(data) + '!.!GS_BLOCK!.!')
         end
       end
 
