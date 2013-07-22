@@ -7,6 +7,6 @@ else
   if ARGV[0] =~ /_spec.rb$/
     system(*(['ruby', '-Ilib', '-Ispec'] + ARGV))
   else
-    system("IN=#{ARGV[0]} rake spec:group")
+    system("IN=#{ARGV[0]} TESTOPTS='#{ARGV[1..-1].join(' ')}' rake spec:group")
   end
 end
