@@ -18,9 +18,7 @@ module GS
       def define
         namespace :background do
           desc "Run navvy work"
-          task :run do
-            require File.join(@root_path, 'config', 'boot.rb')
-
+          task run: :environment do
             Navvy.configure do |config|
               config.job_limit = @job_limit
               config.keep_jobs = false
