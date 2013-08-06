@@ -17,9 +17,7 @@ module GS
       end
 
       def delete(receiver)
-        msg = get(receiver)
-        messages.delete(receiver.id)
-        msg
+        messages.delete(receiver.id) || []
       end
 
       def add_and_send(sender, receiver, options)
@@ -28,34 +26,28 @@ module GS
       end
 
       def send(receiver)
-        process(user)
+        process(receiver)
       end
 
       def broadcast(event_id, data = {})
-        publish('all', Message.new(event_id: event_id, data: data))
+        publish('all', [Message.new(nil, event_id: event_id, data: data)])
       end
 
       protected
 
-      def publish(channel_id, messages)
+      def publish(channel_id, data)
         raise NotImplementedError
-        # @@publisher.write_nonblock(::JSON.generate(data) + '!.!GS_BLOCK!.!')
       end
 
       private
 
       attr_reader :messages
 
-      # def with_events(&block)
-      #   puts caller_locations.last.label
-      #   block.call
-      # end
-
       def process(receiver)
         messages = delete(receiver)
         return if messages.empty?
 
-        publish(receiver.channel_id, messages)
+        publish(receiver.channel_id, messages.collect(&:to_data))
       end
     end
   end

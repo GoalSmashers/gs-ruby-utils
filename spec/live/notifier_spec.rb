@@ -38,27 +38,6 @@ describe FakeNotifier do
     end
   end
 
-  describe '#add_and_send' do
-    it 'should add and send' do
-      flexmock(Sender)
-        .should_receive(:run)
-        .with(receiver.channel_id, Array)
-
-      @notifier.add_and_send(sender, receiver, data)
-      @notifier.get(sender).must_equal []
-      @notifier.get(receiver).must_equal [msg]
-    end
-
-    it 'should add but not send if sender is receiver' do
-      flexmock(Sender)
-        .should_receive(:run)
-        .never
-
-      @notifier.add_and_send(receiver, receiver, data)
-      @notifier.get(receiver).must_equal [msg]
-    end
-  end
-
   describe '#get' do
     it 'should get no messages' do
       @notifier.get(receiver).must_equal []
@@ -73,6 +52,61 @@ describe FakeNotifier do
   describe '#delete' do
     it 'should delete even if no data added' do
       @notifier.delete(receiver).must_equal []
+    end
+
+    it 'should delete added one' do
+      @notifier.add(receiver, data)
+      @notifier.delete(receiver).must_equal [msg]
+    end
+  end
+
+  describe '#add_and_send' do
+    it 'should add and send' do
+      flexmock(Sender)
+        .should_receive(:run)
+        .with(receiver.channel_id, [msg.to_data])
+
+      @notifier.add_and_send(sender, receiver, data)
+      @notifier.get(sender).must_equal []
+      @notifier.get(receiver).must_equal []
+    end
+
+    it 'should add but not send if sender is receiver' do
+      flexmock(Sender)
+        .should_receive(:run)
+        .never
+
+      @notifier.add_and_send(receiver, receiver, data)
+      @notifier.get(receiver).must_equal [msg]
+    end
+  end
+
+  describe '#send' do
+    it 'should not send if no messages' do
+      flexmock(Sender)
+        .should_receive(:run)
+        .never
+
+      @notifier.send(receiver)
+    end
+
+    it 'should send all messages if available' do
+      flexmock(Sender)
+        .should_receive(:run)
+        .with(receiver.channel_id, [msg.to_data])
+
+      @notifier.add(receiver, data)
+      @notifier.send(receiver)
+    end
+  end
+
+  describe '#broadcast' do
+    it 'should broadcast message to all' do
+      flexmock(Sender)
+        .should_receive(:run)
+        .with('all', [msg])
+
+      @notifier.broadcast(data[:event_id], data[:data])
     end
   end
 
