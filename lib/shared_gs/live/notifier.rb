@@ -3,7 +3,7 @@ require_relative 'message'
 module GS
   module Live
     class Notifier
-      def initialize
+      def initialize(*args)
         @messages = {}
       end
 
