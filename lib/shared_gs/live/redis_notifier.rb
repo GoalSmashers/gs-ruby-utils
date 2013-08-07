@@ -1,4 +1,5 @@
 require_relative 'notifier'
+require_relative '../utils/json'
 
 module GS
   module Live
@@ -21,7 +22,7 @@ module GS
       CHANNEL = 'gs-live'
 
       def publish(*args)
-        redis.publish(CHANNEL, build_message(*args).to_json)
+        redis.publish(CHANNEL, GS::JSON[build_message(*args)])
       end
     end
   end
