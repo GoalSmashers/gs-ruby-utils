@@ -7,6 +7,11 @@ describe GS::Live::RedisNotifier do
   before do
     Timecop.freeze
     @notifier = GS::Live::RedisNotifier.new(redis)
+    @notifier.instance_eval do
+      def build_message(channel_id, data)
+        { channelId: channel_id, data: data }
+      end
+    end
   end
 
   after do
@@ -18,7 +23,7 @@ describe GS::Live::RedisNotifier do
       redis
         .should_receive(:publish)
         .once
-        .with('gs-live', { channel_id: receiver.channel_id, data: [msg.to_data] }.to_json)
+        .with('gs-live', { channelId: receiver.channel_id, data: [msg.to_data] }.to_json)
 
       @notifier.add(receiver, data)
       @notifier.send(receiver)

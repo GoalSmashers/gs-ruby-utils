@@ -8,14 +8,20 @@ module GS
         @redis = redis
       end
 
+      protected
+
+      def build_message(channel_id, data)
+        raise NotImplementedError
+      end
+
       private
 
       attr_reader :redis
 
       CHANNEL = 'gs-live'
 
-      def publish(channel_id, data)
-        redis.publish(CHANNEL, { channel_id: channel_id, data: data }.to_json)
+      def publish(*args)
+        redis.publish(CHANNEL, build_message(*args).to_json)
       end
     end
   end
