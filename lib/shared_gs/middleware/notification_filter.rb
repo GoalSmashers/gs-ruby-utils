@@ -21,7 +21,7 @@ module GS
                 body: old_body,
                 type: headers['Content-Type']
               },
-              events: notifier.get(user)
+              events: notifier.get(user).collect(&:to_data)
             }
             new_body = ::JSON.generate(new_body)
             body.clear

@@ -17,7 +17,9 @@ module GS
       end
 
       def delete(receiver)
-        messages.delete(receiver.id) || []
+        msgs = get(receiver)
+        messages.delete(receiver.id)
+        msgs
       end
 
       def add_and_send(sender, receiver, options)
