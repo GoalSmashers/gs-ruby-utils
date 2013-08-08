@@ -32,7 +32,7 @@ module GS
       end
 
       def broadcast(event_id, data = {})
-        publish('all', [Message.new(nil, event_id: event_id, data: data)])
+        publish('all', [Message.new(nil, event_id: event_id, data: data).to_data])
       end
 
       protected

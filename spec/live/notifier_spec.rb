@@ -104,7 +104,7 @@ describe FakeNotifier do
     it 'should broadcast message to all' do
       flexmock(Sender)
         .should_receive(:run)
-        .with('all', [msg])
+        .with('all', [GS::Live::Message.new(nil, data).to_data])
 
       @notifier.broadcast(data[:event_id], data[:data])
     end
