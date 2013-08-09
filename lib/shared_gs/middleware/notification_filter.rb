@@ -3,12 +3,13 @@
 module GS
   module Middleware
     class NotificationFilter
-      def initialize(app)
+      def initialize(app, notifier)
         @app = app
+        @notifier = notifier
       end
 
       def call(env)
-        status, headers, body = @app.call(env)
+        status, headers, body = app.call(env)
 
         user = find_user(env)
         if user && env['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && !headers['Content-Disposition'] && extra_checks(env)
@@ -20,7 +21,7 @@ module GS
                 body: old_body,
                 type: headers['Content-Type']
               },
-              events: Notifications.get(user)
+              events: notifier.get(user).collect(&:to_data)
             }
             new_body = ::JSON.generate(new_body)
             body.clear
@@ -33,7 +34,7 @@ module GS
         end
 
         # Send events nonetheless
-        Notifications.send(user) if user
+        notifier.send(user) if user
 
         [status, headers, body]
       end
@@ -45,6 +46,10 @@ module GS
       def find_user(env)
         env['warden'] && env['warden'].user
       end
+
+      private
+
+      attr_reader :app, :notifier
     end
   end
 end
