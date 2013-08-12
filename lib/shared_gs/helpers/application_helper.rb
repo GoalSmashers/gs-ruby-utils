@@ -2,16 +2,12 @@ module GS
   module Helpers
     module ApplicationHelper
       # Browser version testers
-      def ie7?
-        request.user_agent =~ /MSIE 7/
-      end
-
-      def ie8?
-        request.user_agent =~ /MSIE 8/
+      def ie?(version)
+        (request.user_agent =~ %r(MSIE #{version})) != nil
       end
 
       def chrome_frame?
-        request.user_agent =~ /chromeframe/
+        (request.user_agent =~ /chromeframe/) != nil
       end
 
       # CSRF helpers
