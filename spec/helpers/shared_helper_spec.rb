@@ -8,15 +8,15 @@ describe SharedHelper do
 
   describe '#url' do
     it 'should create URL' do
-      url('/test').must_equal "https://#{HOST}/test"
+      url('/test').must_equal "https://#{ENV['GS_HOST']}/test"
     end
 
     it 'should create URL with params' do
-      url('/test', { a: 1, b: 2 }).must_equal "https://#{HOST}/test?a=1&b=2"
+      url('/test', { a: 1, b: 2 }).must_equal "https://#{ENV['GS_HOST']}/test?a=1&b=2"
     end
 
     it 'should create URL with forced HTTP' do
-      url('/test', { a: 1, b: 2 }, true).must_equal "http://#{HOST}/test?a=1&b=2"
+      url('/test', { a: 1, b: 2 }, true).must_equal "http://#{ENV['GS_HOST']}/test?a=1&b=2"
     end
   end
 

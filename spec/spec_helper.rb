@@ -17,7 +17,7 @@ require 'shared_gs/specs/mail_spec_helper'
 require 'shared_gs/controllers/application'
 
 # Fake host
-HOST = 'fake.host'
+ENV['GS_HOST'] = 'fake.host'
 
 # Dummy application
 class Application < Sinatra::Base
