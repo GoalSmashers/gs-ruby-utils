@@ -40,12 +40,6 @@ module GS
             t.test_files = Dir['spec/**/*_spec.rb'].delete_if { |p| p =~ extra_pattern }
             t.verbose = false
           end
-
-          desc 'Run specs for JavaScript'
-          task :js do
-            system('node spec/js/run.js --noColor')
-            abort unless $?.success?
-          end
         end
       end
 
