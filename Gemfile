@@ -3,8 +3,6 @@ source "http://rubygems.org"
 gemspec
 
 group :test do
-  gem 'debugger', '~> 1.5.0'
-
   gem 'rack', '~> 1.5.0'
   gem 'tilt', '~> 1.4.0'
   gem 'sinatra', '~> 1.4.0'
