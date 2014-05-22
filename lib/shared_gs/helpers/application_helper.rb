@@ -1,4 +1,3 @@
-require 'shared_gs/utils/assets'
 require 'shared_gs/utils/t_scoped'
 
 module GS
