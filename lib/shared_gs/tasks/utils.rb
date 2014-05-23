@@ -20,10 +20,10 @@ module GS
           system("psql -U #{db_config['user']} #{db_config['database']}")
         end
 
-        desc "Open racksh session"
+        desc "Open pry session"
         task :c, :env do |t, args|
           ENV['RACK_ENV'] = args[:env] || 'development'
-          system("bundle exec racksh")
+          exec('bundle exec pry -r ./config/boot')
         end
       end
     end
