@@ -7,7 +7,7 @@ class TestMailProxy < GS::Mail::MailProxy
   end
 end
 
-class Airbrake
+class Bugsnag
   def self.notify(e)
   end
 end
@@ -54,7 +54,7 @@ describe TestMailProxy do
       TestMailProxy.deliver(:test, { to: address }, { subject: "Just testing" })
     end
 
-    it 'should call airbrake in case of an error' do
+    it 'should call bugsnag in case of an error' do
       error = Postmark::InvalidMessageError.new
       message = Mail.new
 
@@ -67,7 +67,7 @@ describe TestMailProxy do
         .should_receive(:deliver)
         .once
         .and_raise(error)
-      flexmock(Airbrake)
+      flexmock(Bugsnag)
         .should_receive(:notify)
         .once
         .with(error)

@@ -31,13 +31,13 @@ module GS
           begin
             ::Mail.bulk_deliver(messages)
           rescue Exception => e
-            Airbrake.notify(e)
+            Bugsnag.notify(e)
           end
         else
           begin
             build_email(template, mail_fields, ctx).deliver
           rescue Exception => e
-            Airbrake.notify(e)
+            Bugsnag.notify(e)
           end
         end
       end

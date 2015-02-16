@@ -4,7 +4,7 @@ module GS
       def self.run(*args)
         perform(*args)
       rescue Exception => e
-        Airbrake.notify(e)
+        Bugsnag.notify(e)
       end
 
       def self.perform
