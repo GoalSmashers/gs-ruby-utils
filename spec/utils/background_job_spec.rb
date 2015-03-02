@@ -1,6 +1,6 @@
 require 'spec_helper'
-require 'shared_gs/jobs/abstract_job'
-require 'shared_gs/utils/background_job'
+require 'gs_ruby_utils/jobs/abstract_job'
+require 'gs_ruby_utils/utils/background_job'
 
 include GS::Utils
 include GS::Jobs

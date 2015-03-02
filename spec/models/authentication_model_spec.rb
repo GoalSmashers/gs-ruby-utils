@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared_gs/models/authentication_model'
+require 'gs_ruby_utils/models/authentication_model'
 
 class FakeUser
   attr_accessor :_store

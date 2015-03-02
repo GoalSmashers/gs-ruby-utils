@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared_gs/controllers/email_preview'
+require 'gs_ruby_utils/controllers/email_preview'
 
 include GS::Controllers
 

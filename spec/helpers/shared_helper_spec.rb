@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared_gs/helpers/shared_helper'
+require 'gs_ruby_utils/helpers/shared_helper'
 
 include GS::Helpers
 

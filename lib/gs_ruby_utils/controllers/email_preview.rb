@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/namespace'
-require 'shared_gs/mail/generic_mailer'
+require 'gs_ruby_utils/mail/generic_mailer'
 
 module GS
   module Controllers
