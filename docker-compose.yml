@@ -1,0 +1,6 @@
+dev:
+  build: .
+  volumes:
+    - bin:/app/bin
+    - lib:/app/lib
+    - spec:/app/spec
