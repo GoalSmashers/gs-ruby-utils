@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared_gs/live/notifier'
+require 'gs_ruby_utils/live/notifier'
 
 class Sender
   def self.run(*args); end

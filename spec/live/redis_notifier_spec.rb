@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared_gs/live/redis_notifier'
+require 'gs_ruby_utils/live/redis_notifier'
 
 describe GS::Live::RedisNotifier do
   include FlexMock::TestCase

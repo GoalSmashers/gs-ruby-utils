@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require 'shared_gs/utils/scoped_backend'
+require 'gs_ruby_utils/utils/scoped_backend'
 
 describe ScopedBackend do
   before do

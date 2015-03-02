@@ -1,4 +1,4 @@
-require 'shared_gs/utils/t_scoped'
+require 'gs_ruby_utils/utils/t_scoped'
 
 module GS
   module Helpers

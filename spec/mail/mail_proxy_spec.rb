@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared_gs/mail/mail_proxy'
+require 'gs_ruby_utils/mail/mail_proxy'
 
 class TestMailProxy < GS::Mail::MailProxy
   def root

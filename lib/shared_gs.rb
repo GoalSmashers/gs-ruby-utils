@@ -1,7 +1,0 @@
-require 'shared_gs/version'
-require 'shared_gs/core/time'
-require 'shared_gs/core/date'
-require 'shared_gs/core/class'
-require 'shared_gs/core/fixnum'
-require 'shared_gs/core/timezone'
-require 'shared_gs/core/needs'

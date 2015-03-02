@@ -1,4 +1,4 @@
-require 'shared_gs/mail/mail_proxy'
+require 'gs_ruby_utils/mail/mail_proxy'
 
 module GS
   module Mail

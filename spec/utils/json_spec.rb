@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared_gs/utils/json'
+require 'gs_ruby_utils/utils/json'
 
 describe GS::JSON do
   describe '#parse' do

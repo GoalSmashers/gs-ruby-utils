@@ -11,10 +11,10 @@ require 'sham'
 require 'faker'
 require 'rack/test'
 
-require 'shared_gs/specs/controller_spec_helper'
-require 'shared_gs/specs/mail_spec_helper'
+require 'gs_ruby_utils/specs/controller_spec_helper'
+require 'gs_ruby_utils/specs/mail_spec_helper'
 
-require 'shared_gs/controllers/application'
+require 'gs_ruby_utils/controllers/application'
 
 # Fake host
 ENV['GS_HOST'] = 'fake.host'
