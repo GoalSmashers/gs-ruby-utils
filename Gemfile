@@ -17,6 +17,7 @@ group :test do
   gem 'yajl-ruby', '~> 1.1.0'
   gem 'redis', '~> 3.0.4'
 
+  gem 'test-unit'
   gem 'minitest', '~> 4.7.3'
   gem 'timecop', '~> 0.6.1'
   gem 'flexmock'
