@@ -1,6 +1,8 @@
 [1.1.0 / 2015-xx-xx]
 
 * Gets rid of Faker & Sham.
+* Adds db:create rake task.
+* Adds db:drop rake task.
 
 [1.0.0 / 2015-03-02]
 ==================
