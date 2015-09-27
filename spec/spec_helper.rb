@@ -7,8 +7,7 @@ Bundler.require(:default, :test)
 gem 'minitest'
 require 'minitest/autorun'
 require 'flexmock'
-require 'sham'
-require 'faker'
+require 'fabrication'
 require 'rack/test'
 
 require 'gs_ruby_utils/specs/controller_spec_helper'
@@ -25,4 +24,4 @@ class Application < Sinatra::Base
 end
 
 # Test helpers
-Sham.email { Faker::Internet.email }
+Fabricate.sequence(:email) { |i| "user#{i}@example.com" }

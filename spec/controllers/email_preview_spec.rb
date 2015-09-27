@@ -49,8 +49,8 @@ describe MyEmailPreview do
         .with('my_mailer/demo', any, any)
         .and_return(
           flexmock({
-            to: [Sham.email],
-            from: Sham.email,
+            to: [Fabricate.sequence(:email)],
+            from: Fabricate.sequence(:email),
             'multipart?' => false,
             subject: 'subject',
             html_part: flexmock({
@@ -74,8 +74,8 @@ describe MyEmailPreview do
         .with('my_mailer/demo', any, any)
         .and_return(
           flexmock({
-            to: [Sham.email],
-            from: Sham.email,
+            to: [Fabricate.sequence(:email)],
+            from: Fabricate.sequence(:email),
             'multipart?' => false,
             subject: 'subject',
             html_part: nil,

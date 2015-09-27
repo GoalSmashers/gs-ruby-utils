@@ -37,7 +37,7 @@ module GS
       # Example:
       # preview 'account_limit_hit' do
       #   {
-      #     name_or_email: Sham.first_name,
+      #     name_or_email: 'John Smith',
       #     limit: 10
       #   }
       # end
@@ -88,7 +88,7 @@ module GS
         preview_mailer = self.class.mailer.new
         email_info = {
           from: self.class.from,
-          to: Sham.email
+          to: Fabricate.sequence(:email)
         }
         context = yield
 

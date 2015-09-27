@@ -36,7 +36,7 @@ describe GenericMailer do
     end
 
     it 'should add to option' do
-      to = Sham.email
+      to = Fabricate.sequence(:email)
 
       flexmock(GenericMailer)
         .new_instances
@@ -50,7 +50,7 @@ describe GenericMailer do
 
     it 'should pass context' do
       ctx = {
-        to: Sham.email,
+        to: Fabricate.sequence(:email),
         x1: 1,
         x2: 5
       }
@@ -66,7 +66,7 @@ describe GenericMailer do
     end
 
     it 'should send bulk emails' do
-      to = [Sham.email, Sham.email]
+      to = [Fabricate.sequence(:email), Fabricate.sequence(:email)]
 
       flexmock(GenericMailer)
         .new_instances

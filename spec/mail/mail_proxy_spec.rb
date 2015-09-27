@@ -39,7 +39,7 @@ describe TestMailProxy do
   describe '#deliver' do
     it 'should call build_email and deliver' do
       message = Mail.new
-      address = Sham.email
+      address = Fabricate.sequence(:email)
 
       flexmock(TestMailProxy)
         .new_instances
@@ -76,7 +76,7 @@ describe TestMailProxy do
     end
 
     it 'should send bulk emails' do
-      to = [Sham.email, Sham.email]
+      to = [Fabricate.sequence(:email), Fabricate.sequence(:email)]
       subject = "Test email"
       message = Mail.new
 
@@ -99,7 +99,7 @@ describe TestMailProxy do
     end
 
     it 'should pass correct :to when doing bulk emails' do
-      to = [Sham.email]
+      to = [Fabricate.sequence(:email)]
 
       flexmock(TestMailProxy)
         .new_instances
