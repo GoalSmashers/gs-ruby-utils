@@ -2,7 +2,8 @@ module GS
   module Utils
     class BackgroundJob
       def self.schedule(name, *args)
-        object = Object.const_get("#{name.to_s}Job".camelize)
+        camelized = name.to_s.gsub(/(^|_)(.)/) { $2.upcase }
+        object = Object.const_get("#{camelized}Job")
 
         if Application.env?(:staging, :production)
           # We call run instead to catch errors

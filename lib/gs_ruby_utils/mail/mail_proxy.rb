@@ -12,7 +12,7 @@ module GS
       end
 
       def template_path
-        File.join(root, 'app', 'views', 'layouts', "#{self.class.to_s.underscore}.erb")
+        File.join(root, 'app', 'views', 'layouts', "#{self.class.to_s.gsub(/([a-z])([A-Z])/, '\1_\2').downcase}.erb")
       end
 
       def self.deliver(template, mail_fields = {}, ctx = {}, is_bulk = false)

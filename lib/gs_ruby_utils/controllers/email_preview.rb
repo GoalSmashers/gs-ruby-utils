@@ -13,7 +13,7 @@ module GS
       end
 
       def self.namespace
-        "/#{self.mailer.to_s.underscore.split('/').last}"
+        "/#{self.mailer.to_s.split('::').last.gsub(/([a-z])([A-Z])/, '\1_\2').downcase}"
       end
 
       def self.views_path
