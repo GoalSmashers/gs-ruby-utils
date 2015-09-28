@@ -12,7 +12,7 @@ module GS
       end
 
       def self.namespace
-        'generic_mailer'
+        self.to_s.gsub(/([a-z])([A-Z])/, '\1_\2').downcase
       end
 
       def self.deliver(template, ctx = {})
