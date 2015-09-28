@@ -3,6 +3,7 @@
 * Gets rid of Faker & Sham.
 * Adds db:create rake task.
 * Adds db:drop rake task.
+* Refactors email preview to not depend on namespace extension.
 
 [1.0.0 / 2015-03-02]
 ==================

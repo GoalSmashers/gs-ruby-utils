@@ -1,12 +1,9 @@
 require 'sinatra'
-require 'sinatra/namespace'
 require 'gs_ruby_utils/mail/generic_mailer'
 
 module GS
   module Controllers
     class EmailPreview < Sinatra::Base
-      register Sinatra::Namespace
-
       def self.from
         'info@goalsmashers.com'
       end
@@ -15,19 +12,19 @@ module GS
         GS::Mail::GenericMailer
       end
 
-      def self.path
+      def self.namespace
         "/#{self.mailer.to_s.underscore.split('/').last}"
       end
 
       def self.views_path
-        path[1..-1]
+        namespace[1..-1]
       end
 
       def self.preview(name, &block)
         add_view_all unless @all_previews
         @@all_previews << name
 
-        get("#{path}/#{name}*") do
+        get("#{namespace}/#{name}*") do
           prepare_email do
             self.instance_eval(&block)
           end
@@ -47,14 +44,14 @@ module GS
       @@all_previews = []
 
       def self.add_view_all
-        get path do
-          Tilt::ERBTemplate.new { |t| frames_layout }.render(Object.new, { path: self.class.path })
+        get namespace do
+          Tilt::ERBTemplate.new { |t| frames_layout }.render(Object.new, { namespace: self.class.namespace })
         end
 
-        get "#{path}/_list" do
+        get "#{namespace}/_list" do
           Tilt::ERBTemplate.new { |t| list_all_layout }.render(Object.new,
             name: self.class.to_s,
-            path: self.class.path,
+            namespace: self.class.namespace,
             previews: @@all_previews
           )
         end
@@ -65,7 +62,7 @@ module GS
 <!DOCTYPE html>
 <html>
 <frameset cols="20%,*">
-  <frame name="navigation" src="<%= path %>/_list" />
+  <frame name="navigation" src="<%= namespace %>/_list" />
   <frame name="preview" />
 </frameset>
 </html>
@@ -77,14 +74,14 @@ module GS
 <h3><%= name %></h3>
 <ol>
   <% previews.each do |preview| %>
-    <li><a href="<%= path %>/<%= preview %>.html" target="preview"><%= preview %></a></li>
+    <li><a href="<%= namespace %>/<%= preview %>.html" target="preview"><%= preview %></a></li>
   <% end %>
 </ol>
         LAYOUT
       end
 
       def prepare_email(&block)
-        resource, type = request.path.split("#{self.class.path}/").last.split('.')
+        resource, type = request.path.split("#{self.class.namespace}/").last.split('.')
         preview_mailer = self.class.mailer.new
         email_info = {
           from: self.class.from,

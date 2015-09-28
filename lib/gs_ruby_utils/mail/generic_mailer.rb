@@ -11,8 +11,8 @@ module GS
         'generic@address.com'
       end
 
-      def self.path
-        self.to_s.underscore
+      def self.namespace
+        'generic_mailer'
       end
 
       def self.deliver(template, ctx = {})
@@ -31,7 +31,7 @@ module GS
           ctx[:subject] = mail_fields[:subject]
         end
 
-        mailer.deliver_email("#{path}/#{template}", mail_fields, ctx, mail_fields[:to].kind_of?(Array))
+        mailer.deliver_email("#{namespace}/#{template}", mail_fields, ctx, mail_fields[:to].kind_of?(Array))
       end
     end
   end
