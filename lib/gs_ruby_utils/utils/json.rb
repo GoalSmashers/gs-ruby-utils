@@ -4,12 +4,12 @@ module GS
   module JSON
     extend self
 
-    def parse(object)
-      Yajl::Parser.parse(object)
+    def parse(object, opts = {})
+      Yajl::Parser.parse(object, opts)
     end
 
-    def [](object)
-      Yajl::Encoder.encode(object)
+    def [](object, opts = {})
+      Yajl::Encoder.encode(object, opts)
     end
   end
 end

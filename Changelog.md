@@ -2,6 +2,7 @@
 
 * Adds db:create rake task.
 * Adds db:drop rake task.
+* Allows option argument to GS::JSON module methods.
 * Gets rid of Faker & Sham.
 * Gets rid of sinatra-contrib.
 * Refactors email preview to not depend on namespace extension.
