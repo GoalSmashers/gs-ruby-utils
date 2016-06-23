@@ -1,7 +1,7 @@
 module GS
   module Specs
     module MocksHelper
-      include FlexMock::TestCase
+      include FlexMock::Minitest
 
       def unmock(scope)
         if scope == :all

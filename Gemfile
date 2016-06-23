@@ -20,7 +20,7 @@ group :test do
   gem 'test-unit'
   gem 'minitest', '~> 4.7.3'
   gem 'timecop', '~> 0.6.1'
-  gem 'flexmock', '~> 1.0'
+  gem 'flexmock', '~> 2.0'
   gem 'fabrication'
 end
 
